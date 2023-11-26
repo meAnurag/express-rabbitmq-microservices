@@ -8,13 +8,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
+    "target": "ES2017",
+    "module": "ESNext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@minex/lib/*": ["lib/src/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

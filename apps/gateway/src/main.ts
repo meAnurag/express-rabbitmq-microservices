@@ -1,14 +1,11 @@
 import express from 'express';
 
-const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+import { startServer } from '@minex/lib/server';
+import { setupProxies } from './proxy';
+import { PROXY_ROUTES } from './routes';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello API' });
-});
+setupProxies(app, PROXY_ROUTES);
 
-app.listen(port, host, () => {
-  console.log(`[ ready ] http://${host}:${port}`);
-});
+startServer(app, Number(process.env.PORT) || 3000, 'Gateway');

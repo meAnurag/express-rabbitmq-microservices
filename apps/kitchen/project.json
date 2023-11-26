@@ -1,0 +1,63 @@
+{
+  "name": "kitchen",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/kitchen/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/kitchen",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/kitchen/src/main.ts",
+        "tsConfig": "apps/kitchen/tsconfig.app.json",
+        "assets": ["apps/kitchen/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "kitchen:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "kitchen:build:development"
+        },
+        "production": {
+          "buildTarget": "kitchen:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/kitchen/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
